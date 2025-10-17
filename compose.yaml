@@ -1,0 +1,7 @@
+﻿services:
+  desafio_poo:
+    image: desafio_poo
+    build:
+      context: .
+      dockerfile: Dockerfile
+
