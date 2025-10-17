@@ -21,7 +21,21 @@ public class ProprietariosService(AppDbContext context)
             ? throw new ProprietarioNaoEncontradoException(id)
             : proprietario.ToReadDto();
     }
+    
+    public async Task<IEnumerable<ImovelReadDto>> GetImoveisByProprietarioIdAsync(Guid proprietarioId)
+    {
+        var proprietarioExiste = await context.Proprietarios.AnyAsync(p => p.Id == proprietarioId);
+        if (!proprietarioExiste)
+        {
+            throw new ProprietarioNaoEncontradoException(proprietarioId);
+        }
 
+        var imoveis = await context.Imoveis
+            .Where(i => i.ProprietarioId == proprietarioId)
+            .ToListAsync();
+
+        return imoveis.Select(imovel => imovel.ToReadDto());
+    }
     public async Task<ProprietarioReadDto> CreateAsync(ProprietarioCreateDto dto)
     {
         var proprietario = dto.ToModel();

@@ -21,6 +21,7 @@ public static class ProprietarioMapper
         return new Proprietario
         {
             Nome = dto.Nome,
+            CPF = dto.CPF,
             Telefone = dto.Telefone
         };
     }
@@ -28,6 +29,7 @@ public static class ProprietarioMapper
     public static void UpdateFromDto(this Proprietario proprietario, ProprietarioUpdateDto dto)
     {
         proprietario.Nome = dto.Nome;
+        proprietario.CPF = dto.CPF;
         proprietario.Telefone = dto.Telefone;
     }
 }

@@ -25,6 +25,19 @@ public static class ProprietariosEndpoints
             }
         }).WithName("GetProprietarioById")
         .WithSummary("Lista proprietário por Id.");
+        
+        group.MapGet("/{id:guid}/imoveis", async (Guid id, ProprietariosService service) =>
+        {
+            try
+            {
+                var imoveis = await service.GetImoveisByProprietarioIdAsync(id);
+                return Results.Ok(imoveis);
+            }
+            catch (ProprietarioNaoEncontradoException e)
+            {
+                return Results.NotFound(e.Message);
+            }
+        }).WithSummary("Lista todos os imóveis que pertencem a um proprietário específico.");
 
         group.MapPost("/", async (ProprietarioCreateDto dto, ProprietariosService service) =>
         {
