@@ -8,6 +8,7 @@ Para configurar e executar o projeto localmente, siga os passos abaixo no seu te
 Execute o comando abaixo para baixar e instalar todos os pacotes NuGet necessários para o projeto.
 
 ```
+dotnet tool install --global dotnet-ef
 dotnet restore
 ```
 
