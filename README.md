@@ -16,6 +16,7 @@ dotnet restore
 Este comando irá criar o banco de dados (SQLite, por padrão) e aplicar o schema definido, incluindo a tabela Imoveis.
 
 ```
+dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
