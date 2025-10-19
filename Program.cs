@@ -22,6 +22,24 @@ builder.Services.AddScoped<InquilinosService>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+
+        // Se o banco de dados não existir, ele será criado
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocorreu um erro ao aplicar as migrations.");
+    }
+}
+
+
 app.MapOpenApi();
 app.UseSwaggerUI(options =>
 {
